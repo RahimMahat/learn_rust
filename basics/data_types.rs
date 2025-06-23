@@ -29,7 +29,7 @@ fn ranges() {
 }
 
 fn tuples() {
-    // A tuple is a collection of heterogenous data 
+    // A tuple is a collection of heterogenous data
     let employee: (&str, i32, &str) = ("john", 28, "marketing"); // with type inference
     let employee = ("john", 28, "marketing"); // also works
     let name = employee.0; // you can access the emelemtns with . or there is another way
@@ -49,20 +49,19 @@ fn traits() {
 
     let seasons = ["Spring", "Summer", "Fall", "Winter"];
     // println!("{}", seasons); // this will result in compile error cuz the array does not implement
-                             // display trait i.e {}
+    // display trait i.e {}
     println!("{:?}", seasons); // instead if you want to print the array you'll have to use the
-                               // debug trait i.e {:?} or to pretty print the debug output you can
-                               // use {:#?}
+    // debug trait i.e {:?} or to pretty print the debug output you can
+    // use {:#?}
     // the debug macro - Prints and returns the value of a given expression for quick debugging
     dbg!(2 + 2); // outputs:[data_types.rs:32:5] 2 + 2 = 4 
-    
 }
 
 fn arrays() {
     // An array is a fixed-sized collection of homogenous data
     let numbers: [i32; 7] = [1, 2, 3, 4, 5, 6, 7]; // just like any other vars you can prefnfine
-                                                   // the type and size of the array or let the
-                                                   // compiler infer the dtype & size
+    // the type and size of the array or let the
+    // compiler infer the dtype & size
     let chars = ['a', 'b', 'c', 'd'];
     // let invalid = [];  // you can not intiate an empty array with no type or size inference
     // since the compiler won't know what to expect in the array. so to create an empty array you'll do
@@ -114,7 +113,7 @@ fn boolean() {
 
 fn augmented_assignment() {
     let mut year = 2025; // when you want to use a var as augmented_assignment that var needs to be
-                         // mutable
+    // mutable
     year += 1;
     println!("The year + 1 is {year}");
 
@@ -127,9 +126,11 @@ fn arithmetics() {
     let substraction = 5 - 3;
     let multiplication = 5 * 3;
     let floor_division = 5 / 3; // when you divide int / int rust performs floor division and
-                                // returns int
+    // returns int
     let decimal_division = 5.0 / 3.0;
-    println!("Addition {addition}, Substraction {substraction}, Multiplication {multiplication}, Floor division {floor_division}, Decimal division {decimal_division}");
+    println!(
+        "Addition {addition}, Substraction {substraction}, Multiplication {multiplication}, Floor division {floor_division}, Decimal division {decimal_division}"
+    );
 }
 
 fn type_casting() {
@@ -145,7 +146,7 @@ fn type_casting() {
 
 fn floats() {
     let pi: f64 = 3.1415926535897932384; // f64 is the default float value, float don't have the
-                                         // concept of signed or unsigned float
+    // concept of signed or unsigned float
     println!("the current value of pi is {pi}");
 
     // A format specifier customizes the printed representation of the interpolated value
@@ -184,8 +185,8 @@ fn integers() {
 
     let thirty_two_bit = -2147483648; // i32 is the default value when you assign a int var
     let thirty_two_bit_unsigned: u32 = 4294967295; // since an unsigned int can not store a
-                                                   // negative value you get twice the space for
-                                                   // positive values compared to signed int
+    // negative value you get twice the space for
+    // positive values compared to signed int
 }
 
 fn main() {

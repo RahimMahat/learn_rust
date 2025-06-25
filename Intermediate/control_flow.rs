@@ -2,6 +2,49 @@
 This file gives you a brief overview of the control flow in the rust programming language
 */
 
+fn recursion(countdown: i32) {
+    // Recursion is when a function calls itself.
+    // A base condtion is something that is used for stoping the recursive calls.
+    if countdown == 0 {
+        println!("Countdown reached 0. Stopping countdown");
+    } else {
+        println!("{countdown} counting down");
+        recursion(countdown - 1);
+    }
+}
+
+fn loops() {
+    let mut seconds = 21;
+
+    // loop {
+    //     if seconds <= 0 {
+    //         println!("Blastoff!");
+    //         break;
+    //     }
+
+    //     if seconds % 2 == 0 {
+    //         println!("{seconds} seconds (even number), skipping 3 seconds");
+    //         seconds -= 3;
+    //         continue; // if this block runs we don't want it to substract 1 second again in the
+    //         // next line so we'll continue the control flow without going to next line.
+    //     }
+    //     println!("{seconds} seconds till blastoff...");
+    //     seconds -= 1;
+    // }
+
+    // while loop
+    while seconds > 0 {
+        if seconds % 2 == 0 {
+            println!("{seconds} seconds (even number), skipping 3 seconds");
+            seconds -= 3;
+            continue; // if this block runs we don't want it to substract 1 second again in the
+            // next line so we'll continue the control flow without going to next line.
+        }
+        println!("{seconds} seconds till blastoff...");
+        seconds -= 1;
+    }
+}
+
 fn match_expr() {
     // The match statement can react to all possible variants of a value
     // A pattern or arm is one possible option to compare the match value against.
@@ -47,4 +90,6 @@ fn main() {
     // language you can also use 'else if' with if-else statement if you require it.
     even_or_odd(24);
     match_expr();
+    loops();
+    recursion(5);
 }

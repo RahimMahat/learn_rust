@@ -52,6 +52,53 @@ This file gives you a brief overview of the ownership concept in the rust progra
 // Ownership is a compiler feature for reducing duplicate heap data and cleaning up heap data that
 // is no longer needed.
 
+#[allow(dead_code)] // this compiler directive is only applied to the foloowing function.
+fn ownership_and_return() {
+    // A return value allows us to persist a value even though a function is concluding.
+    // if there is no new owner of the return value from where the function is called the memory
+    // will be deallocated.
+}
+
+fn mutable_parameters(mut param: String) {
+    // just like variables the function parameters are immutable by default.
+    // to make a parameter mutable you have to define the parameter with the mut keyword
+    // since with the heap values when you pass that as a param the ownership is transfer so even
+    // if you'd defined this value as mutable in main method it would still not work here if you
+    // didn't had the mut keyword infront of this function's parameter.
+    // for a parameter to be mutable the variable does not need to be mutable.
+    param.push_str(". param added in a function where the parameter is mutable");
+    println!("{param}");
+}
+
+fn funcitons_and_ownership(stack_value: i32, heap_value: String) {
+    // When you pass a stack parameter the copy of the param value is passed cuz stack values
+    // implement copy trait. However when a heap value is passed it effectively transfers the
+    // ownership of that value.
+    println!("stack value in funcitons_and_ownership {stack_value}");
+    println!("heap value in funcitons_and_ownership {heap_value}");
+}
+
+fn referece_and_borrowing() {
+    // Borrowing means using something without taking ownership of it.
+    // creating a stack reference is relatively less expensive than creating a heap reference.
+    // Refereces must never outlive their referent.
+    let my_stack_value = 7;
+    // As we learnt the stack types implement copy trait just like that the stack references alos
+    // implement copy trait since they are references there will not be transfer of ownership.
+    let my_stack_referece = &my_stack_value; // this does not store the value of the
+    // my_stack_value which will transfer the ownership but rather only stores the address of that
+    // variable. you can simply type annotate this like below.
+    let my_heap_value: String = String::from("Audi");
+    let my_heap_referece: &String = &my_heap_value;
+    // To dereference means to access  the data at the memory address that the referece points to.
+    println!(
+        "The dereferced value of vars is {} & {}",
+        *my_stack_referece, *my_heap_referece
+    );
+    // basically '*' operator means to take the referece of a value follow it and get the actual
+    // value of that address.
+}
+
 fn moves_and_ownership() {
     // A move is the transfer of ownership from one owner to another.
     // Unlike a stack allocated dtype a heap allocated dtype does not implement copy trait
@@ -63,8 +110,14 @@ fn moves_and_ownership() {
     let person = String::from("John");
     println!("Random person {person}"); // This will work
     let genius = person;
-    // println!("Random person {person}"); // But this will throw a compile time error 
+    // println!("Random person {person}"); // But this will throw a compile time error
     println!("Now the random person is {genius}");
+    // Instead of implementing copy trait and transfering ownership to another variable you can
+    // implement clone trait and with this the ownership will not be transfer but the genius
+    // variable will be responsible for it's own cloned object and person for it's own.
+    // and when you clone instead of copy you can access the person var even after the cloned var
+    let another_person = genius.clone();
+    println!("another_person is {another_person} and genius is {genius}");
     // you can manually deallocate a heap stored memory using drop function.
     drop(genius);
 }
@@ -72,7 +125,7 @@ fn moves_and_ownership() {
 fn string_type() {
     // the string type we've been using like let food: &str = "pasta"; The value is called string
     // literal and it is neither stored in heap nor stack since the value is already know to the
-    // program rust includes this value in the executable binary. 
+    // program rust includes this value in the executable binary.
     // In this method we'll be exploring the String type. We use String when we don't know the size
     // of the value at compile time and so it is stored in the heap.
     let _text = String::new();
@@ -85,15 +138,26 @@ fn string_type() {
 
 fn copy_trait() {
     // manay of rust's scaler data types implement copy trait eg. int, float, bool etc
-    // Eg 
+    // Eg
     let time = 2025;
     let year = time; // time beign a i32 here is being copied by year var
     // The time and year are 2 different owners of 2 values and are resposible for their data
     println!("The time is {time} and the year is {year}");
 }
 
-fn main(){
+fn main() {
     copy_trait();
     string_type();
     moves_and_ownership();
+    referece_and_borrowing();
+    // Ownership and function parameters
+    let stack_value = 7;
+    let heap_value = String::from("Apple");
+    funcitons_and_ownership(stack_value, heap_value); // for the stack_value a copy of the value is passed. while for the heap_value the value itself is passed.
+    println!("stack value in main {stack_value}");
+    // println!("heap value in main {heap_value}"); // This will throw a compile time error. since the
+    // value is borrowed here after the move (transfer of ownership). If you want this to work you
+    // can implement the clone trait and pass the clone as parameter
+    let param_from_main = String::from("param from main");
+    mutable_parameters(param_from_main);
 }

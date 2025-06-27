@@ -85,17 +85,20 @@ fn referece_and_borrowing() {
     let my_stack_value = 7;
     // As we learnt the stack types implement copy trait just like that the stack references alos
     // implement copy trait since they are references there will not be transfer of ownership.
-    let my_stack_referece = &my_stack_value; // this does not store the value of the
+    let my_stack_reference = &my_stack_value; // this does not store the value of the
     // my_stack_value which will transfer the ownership but rather only stores the address of that
     // variable. you can simply type annotate this like below.
     let my_heap_value: String = String::from("Audi");
-    let my_heap_referece: &String = &my_heap_value;
+    let my_heap_reference: &String = &my_heap_value;
     // To dereference means to access  the data at the memory address that the referece points to.
     println!(
         "The dereferced value of vars is {} & {}",
-        *my_stack_referece, *my_heap_referece
+        *my_stack_reference,
+        my_heap_reference // the reference value implement the display trait
+                          // so even if you were to just give the reference var without * operator it will still
+                          // print the value of the reference and not the memory address.
     );
-    // basically '*' operator means to take the referece of a value follow it and get the actual
+    // basically '*' operator means to take the reference of a value follow it and get the actual
     // value of that address.
 }
 

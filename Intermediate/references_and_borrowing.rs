@@ -49,15 +49,12 @@ fn main() {
     // error and will not compile.
 
     // ownership with array and tuple.
-    // The variable assigned to array owns the complete array but not the individual values present
-    // in it, means the var will be resposible for cleaning up the complete array but if you had
-    // extracted an immutable value from the array to a different var that var now owns that
-    // perticular value and the ownership will move to the 2nd var. the mutable values implement
-    // copy trait so this is possible on the other hand if the values inside array are mutable then
-    // this won't be possible since mutable values don't implement the copy trait. in case of the
-    // mutable values instead of trying to create a copy of the value in a different var you can
-    // either use .clone() (basically explicitly telling rust we want to create a copy of mutable var)
-    // or just extract the reference of the value using '&' operator (you'll see this implemented more then the previous suggested approach)
+    // Composite types like arrays and tuples have ownership over their elements.
+    // If a value implements the Copy trait, Rust will create a copy of it when we index into the
+    // type. If a value doesn't implement the Copy trait, ownership will move from the composite
+    // type to the new owner. but if you don't want to move the ownership in case of a mutable
+    // value you can just define the new owner's value to have the reference to the value instead
+    // of owning the value & moving the ownership.
     // Example.
     let immutable_value_array = [true, false, true];
     let first_value = immutable_value_array[0];

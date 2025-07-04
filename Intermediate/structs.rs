@@ -24,34 +24,70 @@ struct ProgrammingLanguages {
     release_year: u32,
 }
 // impl stands for implementataion in which we can define the methods for a struct
+// you can have multiple impl blocks with the same name if they represent they same struct if you
+// want to visually differentiate some part of your logical code to a different impl block you can
+// do so like: impl ProgrammingLanguages {code...} Rust while compiling will combine thiese impl
+// blocks together.
 impl ProgrammingLanguages {
     // self is of type ProgrammingLanguages like self: ProgrammingLanguages or it's also written as self: Self
 
+    // Associated functions are functions that are attached to a type Eg. String::from() 'from' is an associated function that lives on a type which is String.
+    // A constructor is a function that retrns a new instance of a type. Eg. String::new()
+    // How rust differentiates between methods and associated function in an impl block is when you
+    // don't have the 'self' parameter it will consider that to be associated function and if you
+    // do have the 'self' parameter then it will be treated as a method.
+    fn new(name: String, founder: String, release_year: u32) -> ProgrammingLanguages {
+        Self {
+            name,
+            founder,
+            release_year,
+        }
+    }
+
     // Imutable struct value (self parameter takes ownership)
-    fn display_language_info(self: ProgrammingLanguages) {
+    fn _display_language_info(self: ProgrammingLanguages) {
         println!(
             "The Programming Language {} was developed by {} in {}",
             self.name, self.founder, self.release_year
         );
     }
     // Mutable struct value (self parameter takes ownership, has permission to mutate)
-    fn double_release_year(mut self: Self) {
+    fn _double_release_year(mut self: Self) {
         // same thing as annotating ProgrammingLanguages
         self.release_year = self.release_year * 2;
         println!("{:?}", self);
     }
     // Immutable reference to the struct instance (no ownership moved)
-    fn ref_display_language_info(self: &Self) {
+    fn _ref_display_language_info(self: &Self) {
         println!(
             "The Programming Language {} was developed by {} in {}",
             self.name, self.founder, self.release_year
         );
     }
     // Mutable reference to the struct instance (no ownership moved, have permission to mutate)
-    fn mut_ref_double_release_year(self: &mut ProgrammingLanguages) {
+    fn _mut_ref_double_release_year(self: &mut ProgrammingLanguages) {
         // same thing as annotating ProgrammingLanguages
         self.release_year = self.release_year * 2;
         println!("{:?}", self);
+    }
+    // Shorthand annotation for all 4 types are self, mut self, &self, &mut self
+
+    // A method can accept parameter just like any function can only condition being the self
+    // parameter is mandatory for every method.
+    fn is_older_than(&self, other: &ProgrammingLanguages) -> bool {
+        self.release_year < other.release_year
+    }
+    // you can call methods within a mehtod
+    fn display_language_info_since_release_year(self: &Self) {
+        println!(
+            "The Programming Language {} was developed by {}, it was release {} years ago",
+            self.name,
+            self.founder,
+            self.years_since_release()
+        );
+    }
+    fn years_since_release(&self) -> u32 {
+        2025 - self.release_year
     }
 }
 
@@ -144,8 +180,29 @@ fn main() {
         founder: String::from("Graydon Hoare"),
         release_year: 2006,
     };
-    // rust.display_language_info();
+    // rust.display_language_info(); // these 2 methods move ownership since it take the values
     // rust.double_release_year();
-    // rust.ref_display_language_info();
+    // rust.ref_display_language_info(); // but these 2 don't move ownership since it takes reference
     // rust.mut_ref_double_release_year(); // for this to work you need to define the struct instance as mutable: let mut rust = ProgrammingLanguages {}
+
+    // passing parameters to a method
+    let c = ProgrammingLanguages {
+        name: String::from("C"),
+        founder: String::from("Dennis Ritchie"),
+        release_year: 1972,
+    };
+    if c.is_older_than(&rust) {
+        println!("{} is older than {}", c.name, rust.name);
+    } else {
+        println!("{} is not older than {}", c.name, rust.name);
+    }
+    // nested method example
+    c.display_language_info_since_release_year();
+
+    // callling an associated function
+    let _python = ProgrammingLanguages::new(
+        String::from("Python"),
+        String::from("Guido van Rossum"),
+        1991,
+    );
 }

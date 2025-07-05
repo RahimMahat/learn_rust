@@ -205,4 +205,20 @@ fn main() {
         String::from("Guido van Rossum"),
         1991,
     );
+
+    // Builder pattern is basically chaining the methods one after other eg.
+    // instance.method1().method2().method3() like this when we want to implement this we have to
+    // return self parameter at the end of each method.
+
+    // A tuple struct is a struct that assigns each piece of data an order in line rather than a name.
+    struct ShortDuration(u32, u32); // Hours, Minutes
+    struct LongDuration(u32, u32); // Year, Months
+
+    let work_shift = ShortDuration(8, 0);
+    println!("{} hours {} minutes", work_shift.0, work_shift.1);
+
+    let era = LongDuration(9, 6);
+    println!("{} Years {} months", era.0, era.1);
+
+    // A unit is an empty tuple. and a unit like struct looks something like this: struct Empty;
 }

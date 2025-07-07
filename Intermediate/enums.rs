@@ -55,18 +55,28 @@ enum OperatingSystem {
     Windows(u32),
     MacOS,
 }
-fn years_since_release(os: OperatingSystem) -> u32 {
-    match os {
-        OperatingSystem::Linux { distro } => {
-            println!("The current linux distro is {distro}");
-            34
+
+// just like struct we can implement methods and associated functions for enums using impl keyword
+impl OperatingSystem {
+    fn years_since_release(&self) -> u32 {
+        match self {
+            OperatingSystem::Linux { distro } => {
+                println!("The current linux distro is {distro}");
+                34
+            }
+            OperatingSystem::Windows(version) => {
+                println!("This is Windows {version}");
+                39
+            }
+            OperatingSystem::MacOS => 24,
         }
-        OperatingSystem::Windows(version) => {
-            println!("This is Windows {version}");
-            39
-        }
-        OperatingSystem::MacOS => 24,
     }
+}
+
+enum Milk {
+    LowFat(i32),
+    Whole,
+    NoDairy { kind: String },
 }
 
 fn main() {
@@ -105,12 +115,19 @@ fn main() {
     let dinner = RestaurantItem::Biryani(Meat::Beef);
     println!("Breakfast was {salad_bowl:?}, Lunch was {lunch:?} and dinner was {dinner:?}");
 
-    // Demonstrating match case with enums having different types of associated value/data.
+    // Demonstrating match case with enums having different types of associated value/data. and impl
     let my_system = OperatingSystem::Linux {
         distro: String::from("Arch"),
     };
-    let age = years_since_release(my_system);
+    let age = my_system.years_since_release();
     println!("My system is {age} years old");
     let other_system = OperatingSystem::Windows(11);
-    years_since_release(other_system);
+    other_system.years_since_release();
+
+    // The if let construct combines an if statement with a variable declaration.
+    let my_beverage = Milk::LowFat(2); // assume this value is coming dynamically
+
+    if let Milk::LowFat(percent) = my_beverage {
+        println!("Your beverage is {percent}% milk");
+    }
 }

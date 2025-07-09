@@ -47,4 +47,29 @@ fn main() {
         "Gold Chest: {:?}\nSpecial Chest: {:?}",
         gold_chest, special_chest
     );
+    // Generics and impl block.
+    // When you define impl block on a struct that has generic you need to define that generic on
+    // the impl block as well, you can either give it a concrete type like: impl TreasureChest<String>
+    // the method inside that impl block will only work where the treasure type is String.
+    // or if you want the impl generic type to be scalable and accept any type of treasure value
+    // you have to define the generic type on impl keyword itself and then on the struct name eg.
+    impl<T> TreasureChest<T> {
+        fn capital_captain(&self) -> String {
+            self.captain.to_uppercase()
+        }
+    }
+
+    println!("{:?}", gold_chest.capital_captain());
+
+    // Generics in enum.
+    enum Cheesesteak<T> {
+        Plain,
+        Topping(T),
+    }
+
+    let mashroom = Cheesesteak::Topping("Mashrooms"); // string literal
+    let onion = Cheesesteak::Topping("Onion".to_string()); // heap allocated string
+    // but when you want to use the other variant of the enum there you explicitly need to annotate
+    // the generic type using a concrete type.
+    let plain: Cheesesteak<String> = Cheesesteak::Plain;
 }

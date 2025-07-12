@@ -3,8 +3,9 @@ This file gives you a brief overview of the option and result enums concept in t
 */
 
 // The Rust prelude is a collection of named constructs that are available automatically in every program.
-// In language like python we call it built in libraries or built in function, so in Rust things
-// like Option, Result, derive etc are so common that they are provided as built-in.
+// so in Rust things like Option, Result etc are so common that they are provided as built-in.
+
+use std::{num::ParseIntError, vec};
 
 fn option() {
     // The Option enum models a scenario where a type could be a valid value or nothing at all.
@@ -114,7 +115,78 @@ fn option() {
     println!("none option (defaulted): {}", none_myoption.unwrap_or(50)); // this will not panic
 }
 
+fn result() {
+    // The result enum models an evaluation that can produce either a success or an error.
+    // The Ok variant indicates piece of data of generic type T.
+    // The Err variant indicates an error. It stores an associated piece of data of generic type E.
+    let ok: Result<i8, &str> = Result::Ok(4);
+    let err: Result<i32, &str> = Result::Err("Something went wrong");
+    println!("Ok: {ok:?}, Error: {err:?}");
+
+    let text = "23";
+    let text_as_number: Result<i16, ParseIntError> = text.parse::<i16>(); // The parse method
+    // returns a result enum so we need to provide the type which we are trying to parse from a
+    // value using turbofish operator.
+    println!("text_as_number ok: {text_as_number:?}");
+    let text = "Not a Number";
+    let text_as_number = text.parse::<i16>();
+    println!("text_as_number err: {text_as_number:?}");
+
+    // Let's define a function that will return a Result enum.
+    fn divide(numerator: f64, denominator: f64) -> Result<f64, String> {
+        if denominator == 0.0 {
+            Err("Can not divide by zero".to_string())
+        } else {
+            Ok(numerator / denominator)
+        }
+    }
+    let divide_ok = divide(10.0, 2.0);
+    match divide_ok {
+        Ok(calculation) => println!("Result: {}", calculation),
+        Err(message) => println!("Error {}", message),
+    }
+    let divide_err = divide(10.0, 0.0);
+    println!("result err: {}", divide_err.unwrap_or(0.0)); // just like Option, Result also has unwrap, unwrap_or etc methods
+
+    fn operation(great_success: bool) -> Result<&'static str, &'static str> {
+        if great_success {
+            Ok("Success")
+        } else {
+            Err("Error")
+        }
+    }
+
+    let my_result = operation(true);
+    let _content = match my_result {
+        Ok(msg) => msg,
+        Err(err) => err,
+    };
+    println!("my result: {}", my_result.unwrap()); // if we had a datatype that does not implement
+    // Copy trait like heap allocated 'String' we would not be able to access the unwrap method on my_result
+    // variable because the ownership would've moved to the content variable.
+}
+
+fn if_let_while_let() {
+    let mut sauces = vec!["Mayonaise", "Ketchup", "Ranch"];
+
+    if let Some(sauce) = sauces.pop() {
+        // the pop method returns Option so we're
+        // checking if we're getting Some option and if we do we'll print it out
+        println!("The next sauce is {sauce}");
+    }
+    // we can either keep repeating the if let constrct again and again untll there is None. But
+    // this is not optimal, and for this we use while let which will run the while loop untill
+    // there is Some option and as soon as it gets None option it'll terminate
+    while let Some(sauce) = sauces.pop() {
+        println!("The next sauce is {sauce}");
+    }
+}
+
 fn main() {
     // all the Option enum notes are in this function.
     option();
+    // all the Result enum notes are in this function.
+    result();
+    // if let and while let
+    if_let_while_let();
 }

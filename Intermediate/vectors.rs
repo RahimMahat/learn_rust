@@ -3,8 +3,10 @@ This file gives you a brief overview of the vectors concept in the rust programm
 */
 
 fn main() {
+    // Vectors are re-sizable arrays, like slices their size is not know at compile time.
     // A vector is specially usefull when the elements in the array are supposed to grow or shrink
     // as needed but if you have a fix number of elements arrays do the job.
+    // Vecots follows the same rules of ownership and borrowing as we've seen with other.
 
     // Initializing a vector.
     let empty_vec: Vec<i32> = Vec::new(); // we can annotate the type 
@@ -51,4 +53,41 @@ fn main() {
     let slice_num = &num[..2];
     let slice_str = &str_vec[1..];
     println!("slice of num vector {slice_num:?} and slice of str vec {slice_str:?}");
+    // The .get method exacts a vector element by index position. It returns an Option enum to
+    // avoid the runtime panic if the index doesn't exist. .get method always returns the reference
+    // to the value within the Option variant.
+    let option_num = num.get(4);
+    match option_num {
+        Some(some_num) => println!("the num extracted from .get is {some_num}"),
+        None => println!("Index out of bound"),
+    }
+    // Writing vector elements
+    num[0] = 2;
+    println!("Overwriting 0th position element {num:?} ");
+
+    // The vector capacity is the maximum number of elements that the vector can contain.
+    // to demonstrate the capacity we'll use another constructor that the Vec type has which allows
+    // us to set the capacity while Initializing the Vec
+    let mut vec_with_capacity: Vec<&str> = Vec::with_capacity(3);
+    println!(
+        "Before = Length: {}, Capacity: {}",
+        vec_with_capacity.len(),
+        vec_with_capacity.capacity()
+    );
+    vec_with_capacity.push("Summer");
+    vec_with_capacity.push("Winter");
+    vec_with_capacity.push("Rainy");
+    println!(
+        "After = Length: {}, Capacity: {}",
+        vec_with_capacity.len(),
+        vec_with_capacity.capacity()
+    );
+    vec_with_capacity.push("Autumn"); // now since a Vector is still a growable type it'll allow
+    // this even if we set the capacity to 3 but behind the scenne it needs to look for a larger
+    // memory location to store the data and increase the capacity of the vector in runtime.
+    println!(
+        "After exceeding capacity = Length: {}, Capacity: {}",
+        vec_with_capacity.len(),
+        vec_with_capacity.capacity()
+    );
 }

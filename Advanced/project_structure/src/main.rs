@@ -21,4 +21,20 @@ fn main() {
     println!("The manager of our inventory is {}", inventory::MANAGER);
     // another advantage modules is that it allows for duplicate names within different namespace
     println!("The manager of our orders is {}", orders::MANAGER);
+
+    // Accesing other public items.
+    inventory::talk_to_manager();
+    // For an enum when you define it as public all of it's variant become public and can be
+    // accessible, however that's not the case with struct
+    let favourite_cateogory = inventory::products::ProductCategory::Hammer;
+    println!("My favourite category of item is {favourite_cateogory:?}");
+    // Here while accessing the struct we'll get field is private error even though the struct is
+    // public the fields within the struct in a module are private. to resolve it we have to mark
+    // all the fields that we want to be public with pub keyword back in inventory module.
+    let tall_ladder = inventory::products::Item {
+        name: String::from("Ladder Omega"),
+        category: inventory::products::ProductCategory::Ladder,
+        quantity: 100,
+    };
+    println!("tall ladder is {:#?}", tall_ladder);
 }

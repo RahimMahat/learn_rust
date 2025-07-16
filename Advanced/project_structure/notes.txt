@@ -22,4 +22,4 @@ you want to define and when you write mod inventory; in the main.rs the compiler
 inventory.rs file within the same folder.
 - The 3rd option for declaring a modules content is to create a directory for a module rather than a file.
 If we create a dir module we need to give that directory the same name as the module, then we also need to create a file inside that folder and that file must be named as mod.rs.
-NOTE: We can not have an inline module and a file module with the same name or a file module and a folder module, rust will not allow the code to compile if it encounters as such.
+NOTE: We can not have an inline module and a file module with the same name or a file module and a folder module, rust will not allow the code to compile if it encounters as such. You can create submodules within modules by defining a mod in a module which would be accessed as submodule, the same rules of modules apply to the submodules.

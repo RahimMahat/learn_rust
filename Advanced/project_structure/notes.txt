@@ -23,3 +23,20 @@ inventory.rs file within the same folder.
 - The 3rd option for declaring a modules content is to create a directory for a module rather than a file.
 If we create a dir module we need to give that directory the same name as the module, then we also need to create a file inside that folder and that file must be named as mod.rs.
 NOTE: We can not have an inline module and a file module with the same name or a file module and a folder module, rust will not allow the code to compile if it encounters as such. You can create submodules within modules by defining a mod in a module which would be accessed as submodule, the same rules of modules apply to the submodules.
+
+Dependencies:
+A dependency is an external library crate that we pull into our project. Our code depends on it to run.
+when you want to pull in any dependencies you will define those in the Cargo.toml file and when you run either cargo run or cargo build cargo will download the dependencies that are listed in the Cargo.toml file.
+for this example we're using a lib crate called 'fake', The fake crate depends on the rand crate, so we'll need to add it as well, You dependencies section would look something like this:
+  [dependencies]
+  ran = "0.8.5"
+  fake = { version = "2.9.2", features = ["derive"]}
+The standard library is a collection of modules built into Rust. eg. usage is:
+use std::{
+    fmt,
+    io::{self, stdin, stdout}, // here the self keyword allows us to use io if we don't include that we'd be only able to access the stdin and stdout names but with self we can also use io and then any item within if we want like io::name.
+};
+Importing convention is:
+ 1. Imports from Rust's standard library.
+ 2. External crate Imports
+ 3. local module Imports.

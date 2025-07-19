@@ -9,20 +9,22 @@
 //      Cargo will look for a src/main.rs file. If it exists, Rust infers that we have a binary crate named warehouse.
 //      Cargo will look for a src/lib.rs file. If it exists, Rust infers that we have a library crate name warehouse.
 
-// Importing convention is:
-// 1. Imports from Rust's standard library.
-// 2. External crate Imports
-// 3. local module Imports.
-
-mod inventory;
-mod orders;
-
+// mod inventory;
+// mod orders;
 // The 'use' keyword brings a name into the current scope. It creates a shortcut to a name in a nested module.
 // to use multiple names within a module you use {} with comma separated names
-use inventory::products::{Item, ProductCategory};
+// use inventory::products::{Item, ProductCategory};
 // importing the names with aliases.
-use inventory::{MANAGER as INVENTORY_MANAGER, talk_to_manager};
-use orders::MANAGER as ORDERS_MANAGER;
+// use inventory::{MANAGER as INVENTORY_MANAGER, talk_to_manager};
+// use orders::MANAGER as ORDERS_MANAGER;
+
+// We are going to move these imports into lib.rs so we'll treat lib.rs as our entry point for our
+// warehouse library crate. while main.rs remains the main crate root (binary crate root)
+// we can treat the lib.rs file in our package as an expternal library crate called 'warehouse'.
+// The name of this library crate is coming from the name field of the Cargo.toml file
+// so to reference the content in our lib.rs file in main.rs we use the name of the library which is warehouse
+// also to use the imports from lib.rs we need to make them public or else they won't be available to use.
+use warehouse::*;
 
 fn main() {
     // println!("The manager of our inventory is {}",MANAGER); // this will not work because the

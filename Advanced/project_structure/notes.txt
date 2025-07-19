@@ -36,7 +36,13 @@ use std::{
     fmt,
     io::{self, stdin, stdout}, // here the self keyword allows us to use io if we don't include that we'd be only able to access the stdin and stdout names but with self we can also use io and then any item within if we want like io::name.
 };
+Glob operator '*' allows you to import every public item in a module. eg. use std::collection::*
 Importing convention is:
  1. Imports from Rust's standard library.
  2. External crate Imports
  3. local module Imports.
+
+ The Rust package requires at least one of the crate it can be either binary or library crate.
+ You can have a binary crate and a library crate separately but you can also have them combined in one package where the foundation of you binary crate code will live in src/main.rs and the library crate code will live in src/lib.rs
+ You can have multiple binary crates within a single package to achieve this we have to create a bin folder within the src folder, and every rust file inside the bin folder will be treated as a separate binary crate. eg. src/bin/separate_bin.rs. the name of the .rs file can be anything you want and it could be any number of files you need.
+ Now if you were to just do 'cargo run' the code will not compile since it does not know which binary to run to specify which binary you'd like to run you can do 'cargo run --bin warehouse' -> this will run the primary binary crate which is in main.rs. But if you instead want to run any of the files within the bin directory you do "cargo run --bin <file_name>" eg. 'cargo run --bin separate_bin'

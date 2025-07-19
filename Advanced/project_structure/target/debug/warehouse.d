@@ -1,1 +1,0 @@
-/root/learn_rust/Advanced/project_structure/target/debug/warehouse: /root/learn_rust/Advanced/project_structure/src/inventory/products.rs /root/learn_rust/Advanced/project_structure/src/inventory.rs /root/learn_rust/Advanced/project_structure/src/lib.rs /root/learn_rust/Advanced/project_structure/src/main.rs /root/learn_rust/Advanced/project_structure/src/orders/mod.rs

@@ -1,0 +1,17 @@
+A string is a sequence of text characters. Rust has 2 string types: str and String.
+The str type usually appears in it's borrowed form; &str, we call this type a "string slice" or a "ref str".
+Rust embeds string literals in the executable when the program runs, it receives a string slice(reference) to the memory that holds that text.
+The String type lives on the heap. It can grow and shrink is size.
+Rust can transform a &String type into a &str type.
+A String reference can always be represented as a string slice, a borrow of some portion of text, the operation does not work in reverse.
+A &str can't always be represented as a &String. The original source of data may not be a haep String.
+The push_str method concatenates content to the end of a String.
+The push method appends a character to the end of a String.
+The + symbol calls the add method. It takes ownership from the first String and returns the mutated String.
+Rust prohibits accesing an individual byte position within a string, even if we use the borrow operator.
+There is the possibility we access a byte that is part of a larger byte sequence.
+Rust permits the range syntax to extract a byte sequence. Combine it with the borrow operator.
+The format! macro is similar to println! but returns the String instead of printing it. The familiar sytax options ({}, {0}, {var}) all apply.
+The io::stdin struct includes a read_line method which accepts a mutable reference to a String.
+The read_line method returns a Result enum. The operation has the potential to fail.
+The Ok variant stores the number of collected bytes. The original String will hold the user's entry.

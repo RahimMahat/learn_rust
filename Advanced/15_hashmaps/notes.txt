@@ -1,0 +1,15 @@
+A hash map is a collection type that consists of key-value pairs.
+A key is a unique identifier for a value, the values can contain duplicates
+A hash map establishes mappings/connections between two pieces of data.
+The length of a hashamap is a count of it's key-value pairs.
+The std::collections submodule contains the HashMap type.
+The new constructor function instantiates an empty HashMap.
+If the code does not add a key-value pair, we must provide a type declaration.
+The HashMap defines 2 generic types: K and V The keys will be of type K and the values of type V.
+The insert method adds a new key-value pair. If the key exists, Rust will replace the existing value.
+The remove method removes a key-value pair using the key. It returns an Option where the Some variant will store the value.
+The entry method returns an Entry struct with an or_insert method that adds a key-value pair only if the key is not present.
+Use a square brackets to access a value by a key, the program will panic if the key doesn't exist.
+The get method accepts a key and returns an Option, Some variant containing reference to the value and None variant with no associated data.
+
+A hash set is a collection type that stores unique values.

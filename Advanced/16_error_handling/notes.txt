@@ -1,0 +1,4 @@
+Error handling is the process of dealing with potential errors from operations that can go wrong.
+Recoverable errors are errors that we can define code to handle.
+Unrecoverable errors are errors that cause the program to be unable to proceed.
+The backtrace is the list of files and functions that were running at the point that the error occurred.

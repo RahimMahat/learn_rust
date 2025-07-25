@@ -1,34 +1,25 @@
-use std::fs::File;
-use std::io::{self, Read, stdin};
+use std::fs;
+use std::io::{self, stdin};
 
 fn file_handling() -> Result<String, io::Error> {
-    // Opening a file.
+    // Opening & Reading a file.
     println!("Enter filename to open: ");
     let mut input = String::new();
-    let user_requested_file = stdin().read_line(&mut input);
+    // you can use the '?' try operator on a function/method that returns Result,
+    // It'll return the Ok variant if the function gives us Ok and continue with rest of the program but it'll return Err variant if the function gives us error.
+    stdin().read_line(&mut input)?;
 
-    if let Err(err) = user_requested_file {
-        return Err(err);
-    }
+    // The '?' operator can only be used in a function that returns 'Result' or 'Option' (or another type that implements 'FromResidual')
 
-    let mut file = match File::open(input.trim()) {
-        Ok(file) => file,
-        Err(err) => {
-            // Prints to the standard error, while println! prints to the standard output, with a new line.
-            // eprintln!("Something went wrong opening the file, error: {err}");
-            // exit the program gracefully with an error code without panicking.
-            // process::exit(1);
-            return Err(err);
-        }
-    };
+    // There is an easier and efficent way of achieving the below 3 lines in one single line. the
+    // fs module has a function called read_to_string that only takes the file path reads the file
+    // content and returns it in Ok variant or Err variant if error.
+    // let mut file_contents = String::new();
+    // fs::File::open(input.trim())?.read_to_string(&mut file_contents)?;
+    // Ok(file_contents)
 
-    let mut file_contents = String::new();
-    let read_operation = file.read_to_string(&mut file_contents);
-    if let Err(err) = read_operation {
-        return Err(err);
-    }
-
-    Ok(file_contents)
+    // The above 3 lines replaced with this just one line
+    fs::read_to_string(input.trim())
 }
 
 fn main() {

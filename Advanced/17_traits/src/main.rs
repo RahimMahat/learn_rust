@@ -1,11 +1,13 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fmt::Debug};
 
 trait Accommodation {
+    fn book(&mut self, name: &str, nights: u32);
+}
+
+trait Description {
     fn get_description(&self) -> String {
         String::from("A wonderful place to stay!")
     }
-
-    fn book(&mut self, name: &str, nights: u32);
 }
 
 #[derive(Debug)]
@@ -33,6 +35,8 @@ impl Accommodation for Hotel {
     }
 }
 
+impl Description for Hotel {}
+
 #[derive(Debug)]
 struct AirBnB {
     host: String,
@@ -49,11 +53,14 @@ impl AirBnB {
 }
 
 impl Accommodation for AirBnB {
-    fn get_description(&self) -> String {
-        format!("Please enjoy {}'s apartment", self.host)
-    }
     fn book(&mut self, name: &str, nights: u32) {
         self.guests.push((name.to_string(), nights));
+    }
+}
+
+impl Description for AirBnB {
+    fn get_description(&self) -> String {
+        format!("Please enjoy {}'s apartment", self.host)
     }
 }
 
@@ -63,8 +70,16 @@ fn book_for_one_night<T: Accommodation>(entity: &mut T, guest: &str) {
     entity.book(guest, 1);
 }
 
-fn mix_and_match(first: &mut impl Accommodation, second: &mut impl Accommodation, guest: &str) {
+fn mix_and_match(
+    first: &mut (impl Accommodation + Description),
+    second: &mut impl Accommodation,
+    guest: &str,
+) {
+    // Multiple trait bounds is the example of first parameter which is requires it to make sure
+    // that the type that is passes in place of first implements Accommodation & Description both traits.
     first.book(guest, 1);
+    first.get_description();
+
     second.book(guest, 2);
 }
 

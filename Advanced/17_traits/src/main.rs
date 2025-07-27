@@ -57,14 +57,25 @@ impl Accommodation for AirBnB {
     }
 }
 
+fn book_for_one_night(entity: &mut impl Accommodation, guest: &str) {
+    // entity can be any type as long as it implements Accommodation trait.
+    entity.book(guest, 1);
+}
+
 fn main() {
     let mut hotel = Hotel::new("Orchids");
     println!("{}", hotel.summarize());
     hotel.book("Piers", 5);
-    println!("{:#?}", hotel);
 
     let mut airbnb = AirBnB::new("Mark");
     println!("{}", airbnb.get_description());
     airbnb.book("Piers", 3);
+
+    // Hotel & AirBnB both struct implement Accommodation trait hence we can call the
+    // book_for_one_night function on both of them.
+    book_for_one_night(&mut hotel, "Quraish");
+    book_for_one_night(&mut airbnb, "Quraish");
+
+    println!("{:#?}", hotel);
     println!("{:#?}", airbnb);
 }

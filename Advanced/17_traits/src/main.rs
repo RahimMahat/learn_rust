@@ -57,25 +57,32 @@ impl Accommodation for AirBnB {
     }
 }
 
-fn book_for_one_night(entity: &mut impl Accommodation, guest: &str) {
-    // entity can be any type as long as it implements Accommodation trait.
+fn book_for_one_night<T: Accommodation>(entity: &mut T, guest: &str) {
+    // entity can be any type as long as it implements Accommodation trait. trait for function parameter syntax eg. fn name(var: impl Accommodation)
+    // trait bound syntax is something that requires a generic type to implement a specific trait. eg. fn name<T: Accommodation>(var: T)
     entity.book(guest, 1);
+}
+
+fn mix_and_match(first: &mut impl Accommodation, second: &mut impl Accommodation, guest: &str) {
+    first.book(guest, 1);
+    second.book(guest, 2);
 }
 
 fn main() {
     let mut hotel = Hotel::new("Orchids");
     println!("{}", hotel.summarize());
-    hotel.book("Piers", 5);
+    hotel.book("Quraish", 5);
 
     let mut airbnb = AirBnB::new("Mark");
     println!("{}", airbnb.get_description());
-    airbnb.book("Piers", 3);
+    airbnb.book("Quraish", 3);
 
     // Hotel & AirBnB both struct implement Accommodation trait hence we can call the
     // book_for_one_night function on both of them.
-    book_for_one_night(&mut hotel, "Quraish");
-    book_for_one_night(&mut airbnb, "Quraish");
+    book_for_one_night(&mut hotel, "Piers");
+    book_for_one_night(&mut airbnb, "Piers");
 
+    mix_and_match(&mut hotel, &mut airbnb, "Sheikh");
     println!("{:#?}", hotel);
     println!("{:#?}", airbnb);
 }

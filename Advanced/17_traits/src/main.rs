@@ -70,11 +70,11 @@ fn book_for_one_night<T: Accommodation>(entity: &mut T, guest: &str) {
     entity.book(guest, 1);
 }
 
-fn mix_and_match(
-    first: &mut (impl Accommodation + Description),
-    second: &mut impl Accommodation,
-    guest: &str,
-) {
+fn mix_and_match<T, U>(first: &mut T, second: &mut U, guest: &str)
+where
+    T: Accommodation + Description,
+    U: Accommodation,
+{
     // Multiple trait bounds is the example of first parameter which is requires it to make sure
     // that the type that is passes in place of first implements Accommodation & Description both traits.
     first.book(guest, 1);

@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fmt::Debug};
+use std::{collections::HashMap, fmt::Display};
 
 trait Accommodation {
     fn book(&mut self, name: &str, nights: u32);
@@ -11,15 +11,15 @@ trait Description {
 }
 
 #[derive(Debug)]
-struct Hotel {
-    name: String,
+struct Hotel<T> {
+    name: T,
     reservations: HashMap<String, u32>,
 }
 
-impl Hotel {
-    fn new(name: &str) -> Self {
+impl<T: Display> Hotel<T> {
+    fn new(name: T) -> Self {
         Self {
-            name: name.to_string(),
+            name,
             reservations: HashMap::new(),
         }
     }
@@ -29,13 +29,13 @@ impl Hotel {
     }
 }
 
-impl Accommodation for Hotel {
+impl<T> Accommodation for Hotel<T> {
     fn book(&mut self, name: &str, nights: u32) {
         self.reservations.insert(name.to_string(), nights);
     }
 }
 
-impl Description for Hotel {}
+impl<T> Description for Hotel<T> {}
 
 #[derive(Debug)]
 struct AirBnB {

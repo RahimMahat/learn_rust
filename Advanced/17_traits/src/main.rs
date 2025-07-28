@@ -83,6 +83,10 @@ where
     second.book(guest, 2);
 }
 
+fn choose_best_place_to_stay() -> impl Accommodation + Description {
+    Hotel::new("The Luxe")
+}
+
 fn main() {
     let mut hotel = Hotel::new("Orchids");
     println!("{}", hotel.summarize());
@@ -100,4 +104,6 @@ fn main() {
     mix_and_match(&mut hotel, &mut airbnb, "Sheikh");
     println!("{:#?}", hotel);
     println!("{:#?}", airbnb);
+    #[allow(unused_variables)]
+    let luxe_hotel = choose_best_place_to_stay();
 }

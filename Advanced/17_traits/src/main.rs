@@ -104,6 +104,10 @@ fn main() {
     mix_and_match(&mut hotel, &mut airbnb, "Sheikh");
     println!("{:#?}", hotel);
     println!("{:#?}", airbnb);
-    #[allow(unused_variables)]
-    let luxe_hotel = choose_best_place_to_stay();
+
+    let _luxe_hotel = choose_best_place_to_stay();
+
+    // A trait object is an instance of a type that implements a particular trait whose methods will be accessed at runtime using a feature called dynamic dispatch.
+    let stays: Vec<&dyn Description> = vec![&hotel, &airbnb];
+    println!("{}", stays[0].get_description());
 }

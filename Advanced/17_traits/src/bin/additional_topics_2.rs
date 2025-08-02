@@ -61,3 +61,4 @@ fn main() {
     println!("Display: {}", lunch_snack);
     println!("Debug: {:?}", lunch_snack);
 }
+

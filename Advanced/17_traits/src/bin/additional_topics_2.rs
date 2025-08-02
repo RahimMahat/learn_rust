@@ -1,4 +1,4 @@
-use std::fmt::{Display, Formatter, Result};
+use std::fmt::{Debug, Display, Formatter, Result};
 
 enum AppleType {
     RedDelicious,
@@ -17,6 +17,17 @@ impl Display for AppleType {
     }
 }
 
+// we know the idiomatic way of Implementing a Debug trait using compiler directive #[derive(Debug)]
+// but we can also implement custom Debug trait just like Display implementation.
+impl Debug for AppleType {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> Result {
+        match self {
+            AppleType::RedDelicious => write!(formatter, "AppleType::RedDelicious"),
+            AppleType::GreenApples => write!(formatter, "AppleType::GreenApples"),
+        }
+    }
+}
+
 struct Apple {
     kind: AppleType,
     price: f64,
@@ -31,11 +42,22 @@ impl Display for Apple {
     }
 }
 
+impl Debug for Apple {
+    fn fmt(&self, formatter: &mut Formatter<'_>) -> Result {
+        write!(
+            formatter,
+            "Apple ::: [ Kind: {:?}, Price: {} ]",
+            self.kind, self.price
+        )
+    }
+}
+
 fn main() {
     let lunch_snack = Apple {
         kind: AppleType::RedDelicious,
         price: 12.34,
     };
 
-    println!("{}", lunch_snack);
+    println!("Display: {}", lunch_snack);
+    println!("Debug: {:?}", lunch_snack);
 }

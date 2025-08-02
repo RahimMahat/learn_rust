@@ -1,4 +1,6 @@
 use std::fmt::{Debug, Display, Formatter, Result};
+use std::fs;
+use std::ops::Drop;
 
 enum AppleType {
     RedDelicious,
@@ -56,6 +58,17 @@ impl Debug for Apple {
             .field("Kind", &self.kind)
             .field("Price", &self.price)
             .finish()
+    }
+}
+
+// Implementing custom Drop trait to the Apple struct
+impl Drop for Apple {
+    // This drop method will be automatically invoked as soon as the Apple instance goes out of scope.
+    fn drop(&mut self) {
+        match fs::remove_file("apple.txt") {
+            Ok(_) => println!("Deleting apple.txt"),
+            Err(err) => eprintln!("Error occurred: {}", err),
+        }
     }
 }
 

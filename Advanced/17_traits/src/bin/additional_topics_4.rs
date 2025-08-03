@@ -1,3 +1,9 @@
+struct BusTrip {
+    origin: String,
+    destination: String,
+    time: String,
+}
+
 struct Flight {
     origin: String,
     destination: String,
@@ -5,6 +11,16 @@ struct Flight {
 }
 
 impl Flight {
+    fn new(origin: &str, destination: &str, time: &str) -> Self {
+        Self {
+            origin: origin.to_string(),
+            destination: destination.to_string(),
+            time: time.to_string(),
+        }
+    }
+}
+
+impl BusTrip {
     fn new(origin: &str, destination: &str, time: &str) -> Self {
         Self {
             origin: origin.to_string(),
@@ -23,6 +39,13 @@ impl PartialEq for Flight {
     }
 }
 
+// defining equality for different types. we're checking Flight struct type with BusTrip struct type
+impl PartialEq<Flight> for BusTrip {
+    fn eq(&self, other: &Flight) -> bool {
+        self.origin == other.origin && self.time == other.time
+    }
+}
+
 fn main() {
     // The PartialEq trait establishes equality between two values.
     let a = Flight::new("New York", "London", "08:00");
@@ -31,4 +54,10 @@ fn main() {
     println!("{}", a == b); // the PartialEq trait allows us to check for equality
     println!("{}", b.eq(&c)); // eq methods checks is equal
     println!("{}", b.ne(&a)); // ne methods checks is not equal.
+
+    let bus_trip = BusTrip::new("Tokyo", "Beijing", "08:00");
+    let flight = Flight::new("Tokyo", "Seoul", "08:00");
+    println!("{}", bus_trip == flight);
+    // println!("{}", flight == bus_trip); // this will not work since we've not implmented PartialEq
+    // for Flight on BusTrip. we also not have the regular PartialEq trait on BusTrip so we can't do bus_trip == bus_trip either.
 }

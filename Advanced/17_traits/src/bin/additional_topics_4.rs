@@ -10,6 +10,12 @@ struct Flight {
     time: String,
 }
 
+#[derive(PartialEq)]
+enum Musician {
+    SingerSongWriter(String),
+    Band(u32),
+}
+
 impl Flight {
     fn new(origin: &str, destination: &str, time: &str) -> Self {
         Self {
@@ -46,6 +52,22 @@ impl PartialEq<Flight> for BusTrip {
     }
 }
 
+// just like struct you can define a custom implementation of PartialEq to enum type.
+// impl PartialEq for Musician {
+//     fn eq(&self, other: &Self) -> bool {
+//         match self {
+//             Musician::SingerSongWriter(name) => match other {
+//                 Musician::SingerSongWriter(other_name) => name == other_name,
+//                 Musician::Band(_) => false,
+//             },
+//             Musician::Band(numbers) => match other {
+//                 Musician::Band(other_numbers) => numbers == other_numbers,
+//                 Musician::SingerSongWriter(_) => false,
+//             },
+//         }
+//     }
+// }
+//
 fn main() {
     // The PartialEq trait establishes equality between two values.
     let a = Flight::new("New York", "London", "08:00");
@@ -60,4 +82,12 @@ fn main() {
     println!("{}", bus_trip == flight);
     // println!("{}", flight == bus_trip); // this will not work since we've not implmented PartialEq
     // for Flight on BusTrip. we also not have the regular PartialEq trait on BusTrip so we can't do bus_trip == bus_trip either.
+
+    let musician_1 = Musician::SingerSongWriter("Rasputin".to_string());
+    let musician_2 = Musician::SingerSongWriter("Zaz".to_string());
+    let band_1 = Musician::Band(4);
+    let band_2 = Musician::Band(4);
+
+    println!("{}", musician_1 == musician_2);
+    println!("{}", band_1 == band_2);
 }

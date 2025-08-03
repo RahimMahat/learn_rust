@@ -1,3 +1,4 @@
+#[derive(PartialEq, Eq)]
 struct BusTrip {
     origin: String,
     destination: String,
@@ -68,6 +69,7 @@ impl PartialEq<Flight> for BusTrip {
 //     }
 // }
 //
+
 fn main() {
     // The PartialEq trait establishes equality between two values.
     let a = Flight::new("New York", "London", "08:00");
@@ -90,4 +92,13 @@ fn main() {
 
     println!("{}", musician_1 == musician_2);
     println!("{}", band_1 == band_2);
+
+    // Eq trait is a subtrait of PartialEq which can only be implmented if
+    // i. b1 == b1; 11. b1 == b2 implies b2 == b1 iii. b1 == b2 and b2 == b3 implies b1 == b3.
+    let b1 = BusTrip::new("New Delhi", "Mumbai", "08:00");
+    let b2 = BusTrip::new("New Delhi", "Mumbai", "08:00");
+    let b3 = BusTrip::new("New Delhi", "Mumbai", "08:00");
+    println!("{}", b1.eq(&b1));
+    println!("{}", b1.eq(&b2) && b2.eq(&b1));
+    println!("{}", b1 == b2 && b2 == b3 && b1 == b3);
 }

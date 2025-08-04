@@ -10,8 +10,40 @@ Traits we've seen before:
   * The 'Display' and 'Debug' traits require a type to define methods for presenting itself as a string.
   * The 'Clone' trait requires a type to define a clone method for creating a duplicate of itself.
 
+Trait definition:
+  * The trait definition defines the required methods and their signatures.
+  * The trait definition can define a default implementation for a method. Rust will use the fallback method if a type does not define the method.
+  * A trait must be in scope to invoke any of it's methods on a type.
+
 Implementations:
   * Once we have defined a trait, we can implement it on structs and enums. The type promises to honor the trait's contract.
   * Multiple types can implement the same trait.
   * A type can implement multiple traits.
+  * Use the impl keyword folowed by the trait name, the for keyword, and the type. Rust requiers one impl block per trait.
+  * Define the trait's required methods within a block. Provide concrete implementations.
+  * The compiler will raise an error if there are too few methods, too many methods, or any type mismatches.
+  * Independent methods must be difined in separate impl blocks.
+
+Associated Constants:
+  * A trait can define a constant with the const keyword. Provide the type and the assignment.
+  * Trait methods can utilize the constant's value.
+  * Trait implementation can overwrite the constant for a given type.
+
+Trait bounds:
+  * A function can accept a generic parameter that implements a given trait.
+  * The first option is the impl keyword followed by the trait.
+  * The second option is to define a generic and add trait bounds within the angle brackets.
+  * The third option is to define a generic and pair it with the where keyword to add trait constraints.
+
+Trait Objects:
+  * A trait object is an instance of a type that implements a trait whose methods will be accessed at runtime using a feature called dynamic dispatch.
+  * Trait objects enable the code to store different types within collections like vectors.
+  * Use &dyn followed by the trait that all types in the vector will implement.
+
+Supertraits:
+  * A supertrait is a trait from which another trait inherits. It is also called the parent trait.
+  * the subtrait is the trait that inherits functionality. It is also called the child trait.
+  * Use colon syntax to establish a relationsihp between subtrait and supertrait. eg. trait Subtrait: Supertrait 
+  * Types that implement the subtrait must implement the supertrait. The reverse does not apply.
+
 

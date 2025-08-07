@@ -7,3 +7,8 @@ Lifetime Annotations:
   * A lifetime annotation is a name or label for a lifetime.
   * Lifetime annotations don't change the reference's lifetime. They don't affect the logic in any way.
   * A lifetime annotation is a piece of metadata that we provide to the borrow checker so that it can validate that references are valid.
+
+Lifetime Elisoion:
+  * Elision is the act of omitting something. Lifetime elision means omitting generic lifetime annotations in situations where the borrow checker can infer the lifetime relationship automatically.
+  * First Elision Rule: The compiler assigns a lifetime to each parameter that is a reference.
+  * Second Elision Rule: If there is one reference parameter and the return value is a reference, the borrow checker will infer that their lifetimes are related.

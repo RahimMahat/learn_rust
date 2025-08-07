@@ -17,6 +17,20 @@ fn generic_lifetime<'a>(items: &'a [String]) -> &'a [String] {
     &items[..2]
 }
 
+// Multiple reference parameter
+// the function will not compile unless we have explicitly defined the lifetime annotations.
+fn choose_favourite<'a>(first: &'a str, second: &str) -> &'a str {
+    println!("{second}");
+    first
+}
+fn longest<'a>(first: &'a str, second: &'a str) -> &'a str {
+    if first.len() > second.len() {
+        first
+    } else {
+        second
+    }
+}
+
 fn main() {
     let cities = vec![
         String::from("Riyadh"),
@@ -37,4 +51,9 @@ fn main() {
         "d".to_string(),
     ];
     generic_lifetime(&items);
+
+    let first = "Python";
+    let second = "Rust";
+    choose_favourite(first, second);
+    println!("{}", longest(first, second));
 }

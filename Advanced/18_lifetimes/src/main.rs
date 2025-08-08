@@ -31,6 +31,29 @@ fn longest<'a>(first: &'a str, second: &'a str) -> &'a str {
     }
 }
 
+struct DenitstAppointment {
+    doctor: String,
+}
+
+impl DenitstAppointment {
+    fn book(&self, check_in_time: &str, check_out_time: &str) -> &str {
+        // The function definition is similar to saying
+        // fn book<'a, 'b, 'c>(&'a self, 'b check_in_time: &str, 'c check_out_time: str) -> &'a str
+        // but due to the Third Elision rule we don't have to write out the lifetime annotations
+        println!(
+            "You are booked from {} to {} with doctor {}",
+            check_in_time, check_out_time, self.doctor
+        );
+        &self.doctor
+    }
+
+    fn check_out_time<'a>(&self, check_in_time: &str, check_out_time: &'a str) -> &'a str {
+        // but if you want to return a perticular reference that is not the instance then you have
+        // to specify the lifetime annotation for the function parameter and the return parameter as well.
+        check_out_time
+    }
+}
+
 fn main() {
     let cities = vec![
         String::from("Riyadh"),
@@ -56,4 +79,16 @@ fn main() {
     let second = "Rust";
     choose_favourite(first, second);
     println!("{}", longest(first, second));
+
+    // third elision rule example
+    let appt = DenitstAppointment {
+        doctor: String::from("David"),
+    };
+    let result = appt.book("2:00", "3:00");
+    // drop(appt);
+    // println!("{result}"); // now this will be a dangling reference since the return lifetime of the
+    // method is tied to the referent and can not outlive the referent.
+    let check_out_time = appt.check_out_time("2:00", "3:00");
+    drop(appt);
+    println!("{}", check_out_time); // this will work fine.
 }

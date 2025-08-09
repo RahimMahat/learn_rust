@@ -54,6 +54,24 @@ impl DenitstAppointment {
     }
 }
 
+// lifetime in struct: You need to annotate the lifetime of your struct fields if the type of those fields is a reference
+// you can also define Multiple lifetimes in struct fields.
+// it's non conventional to store references, most of the times we'll only be using owned types for fields.
+#[derive(Debug)]
+struct TrainSystem<'a> {
+    name: &'a str,
+}
+
+// 'static lifetime
+fn say_hello() -> &'static str {
+    "Hello"
+}
+
+const BOND: i32 = 0007;
+fn agent_code() -> &'static i32 {
+    &BOND
+}
+
 fn main() {
     let cities = vec![
         String::from("Riyadh"),
@@ -84,11 +102,19 @@ fn main() {
     let appt = DenitstAppointment {
         doctor: String::from("David"),
     };
-    let result = appt.book("2:00", "3:00");
+    let _result = appt.book("2:00", "3:00");
     // drop(appt);
     // println!("{result}"); // now this will be a dangling reference since the return lifetime of the
     // method is tied to the referent and can not outlive the referent.
     let check_out_time = appt.check_out_time("2:00", "3:00");
     drop(appt);
     println!("{}", check_out_time); // this will work fine.
+
+    // lifetime in struct
+    let train_name = String::from("Bullet train");
+    println!("{:?}", TrainSystem { name: &train_name });
+
+    // 'static lifetime
+    println!("{}", say_hello());
+    println!("{}", agent_code());
 }

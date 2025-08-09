@@ -1,0 +1,46 @@
+Lifetimes:
+  * A lifetime is the region of code that a value is alive, which means functional, valid, useful
+  * A lifetime is the time during which a value exists at a particular memory address.
+  * Lifetimes exist so that the borrow checker can identify dangling references.
+  * A dangling reference is a reference to data that does not exist.
+
+Scopes and Lifetimes:
+  * A scope is a region of code belonging a block (a section between a pair of curly braces).
+  * A value's lifetime is often connected to it's scope.
+  * When an owner reaches the end of it's scope, it cleans up the associated data. The value's lifetime ends.
+
+References and Lifetimes:
+  * A referent is the data/value that a reference borrows.
+  * A reference's lifetime ends at the last place in the code where it is used (non-lexical scope)
+  * A reference's lifetime is connected to the lifetime of it's referent, the source of it's data.
+  * The reference's lifetime must be contained within the referent's lifetime to avoid a dangling reference.
+
+
+Generic Lifetimes vs Concrete Lifetimes:
+  * A concrete lifetime is the region of code that a value exists in the program (the time it lives in it's memory address)
+  * A generic lifetime is more abstract. It is a hypothetical lifetime, a non-specific lifetime, a future lifetime that can vary.
+  * We can annotate generic lifetimes in our code. This enables functions that are flexible enough to handle varying lifetimes.
+
+Lifetime Annotations:
+  * A lifetime annotation is a name or label for a lifetime.
+  * Lifetime annotations don't change the reference's lifetime. They don't affect the logic in any way.
+  * A lifetime annotation is a piece of metadata that we provide to the borrow checker so that it can validate that references are valid.
+
+Lifetime Syntax:
+  * Use a pair of angle brackets, assign the lifetime a short name starting with a tick. 'a is a common choice.
+  * Use the lifetime to mark the connection between references and the return value.
+  * Think of the lifetime as augmenting a type. A type of &str is defferent from a type of &'a str
+  * Marking multiple reference parameters with the same lifetime annotation does not mean they have to have an identical lifetime.
+  * If there are different concrete lifetimes, the returned reference must live within the overlapping lifetime ( the shorter of the two lifetimes)
+  * The borrow checker will validate that a returned reference to either parameter will be valid.
+
+Lifetime Elision:
+  * Elision is the act of omitting something. Lifetime elision means omitting generic lifetime annotations in situations where the borrow checker can infer the lifetime relationship automatically.
+  * First Elision Rule: The compiler assigns a lifetime to each parameter that is a reference.
+  * Second Elision Rule: If there is one reference parameter and the return value is a reference, the borrow checker will infer that their lifetimes are related.
+  * Third Elision Rule: In a method definition, if there are multiple reference parameters but one of them is self, the borrow checker will assume the lifetime of the instance is connected to the lifetime of the return value.
+
+Lifetime in Structs:
+  * A struct can store a reference in a field.
+  * The lifetime of the struct must be connected with the lifetime of the field.
+  * The lifetime of the struct must end before the lifetime of the field's referent, otherwise the struct's field would be a dangling reference.

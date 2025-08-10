@@ -1,0 +1,3 @@
+Closures:
+  * A closure is a function without a name. It is sometimes called an anonymous function or a lambda.
+  * Functional programming treats a function like any other value in a program closure is a paradigm of Functional programming.

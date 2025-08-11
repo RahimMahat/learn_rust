@@ -1,3 +1,8 @@
 Closures:
   * A closure is a function without a name. It is sometimes called an anonymous function or a lambda.
   * Functional programming treats a function like any other value in a program closure is a paradigm of Functional programming.
+
+Fn Trait Hierarchy:
+  * Fn: Closure captures value by immutable reference or doesn't capture anything at all, closure can be invoked multiple times.
+  * FnMut: Captures values by mutable reference, closure can be invoked multiple times.
+  * FnOnce: Closure captures values by move(transferring ownership). Closure will be invoked once.

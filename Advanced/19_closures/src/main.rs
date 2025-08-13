@@ -1,3 +1,26 @@
+use std::io::stdin;
+
+#[derive(Debug)]
+struct Vault {
+    password: String,
+    treasure: String,
+}
+
+impl Vault {
+    // defining a method that accepts a closure.
+    fn unlock<F>(self, procedure: F) -> Option<String>
+    where
+        F: FnOnce() -> String,
+    {
+        let user_password = procedure();
+        if user_password == self.password {
+            Some(self.treasure)
+        } else {
+            None
+        }
+    }
+}
+
 fn main() {
     let multiplier = 5;
 
@@ -56,4 +79,36 @@ fn main() {
     let option: Option<&str> = None;
     let food = option.unwrap_or_else(|| "Kebab");
     println!("{food}");
+
+    // closure as a function parameter
+    let vault = Vault {
+        password: String::from("topsecret"),
+        treasure: String::from("Gold"),
+    };
+
+    let hack = || {
+        let mut user_input = String::new();
+        println!("Please enter password for the treasure: ");
+        stdin().read_line(&mut user_input);
+        user_input.trim().to_string()
+    };
+
+    let extraction = vault.unlock(hack);
+    println!("{:?}", extraction);
+
+    // the String.retain method.
+    let mut game_console = String::from("PlayStation");
+    let mut deleted_characters = String::new();
+    let retain_closure = |character| {
+        let is_not_a = character != 'a';
+        if is_not_a {
+            true
+        } else {
+            deleted_characters.push(character);
+            false
+        }
+    };
+    game_console.retain(retain_closure);
+    println!("{}", game_console);
+    println!("{}", deleted_characters);
 }

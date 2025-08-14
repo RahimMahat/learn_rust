@@ -1,8 +1,26 @@
 Closures:
   * A closure is a function without a name. It is sometimes called an anonymous function or a lambda.
   * Functional programming treats a function like any other value in a program closure is a paradigm of Functional programming.
+  * We can pass a closure to a function, return it out of a function, assign it to a variable, store it in a collection type, etc.
+
+Closure Syntax:
+  * Declare a closure with a pair of vertical pipes and curly braces. Omit the braces for a one-line expression.
+  * Define parameters inside the pipes. Use arrow syntax to designate a return value.
+  * The compiler can infer the types of closure parameters and return values based on the closure's logic and it's invocation.
 
 Fn Trait Hierarchy:
-  * Fn: Closure captures value by immutable reference or doesn't capture anything at all, closure can be invoked multiple times.
-  * FnMut: Captures values by mutable reference, closure can be invoked multiple times.
   * FnOnce: Closure captures values by move(transferring ownership). Closure will be invoked once.
+  * FnMut: Captures values by mutable reference, closure can be invoked multiple times.
+  * Fn: Closure captures value by immutable reference or doesn't capture anything at all, closure can be invoked multiple times.
+
+Move keyword:
+  * The move keyword forces a closure to take ownership of it's values even when it normally would borrow a reference.
+  * Even with the move keyword, some closures can still be invoked multiple times. One example is if the closure doesn't return the moved value.
+
+Closure Parameters:
+  * To define a parameter that accepts a closure, declare a generic and apply it to the parameter.
+  * Add a trait bound to mandate that the generic implements one of the three Fn traits.
+  * The most common syntax is adding the where keyword after the parameter list.
+  * Alternatively, we can force the trait constraint on the generic in it's declaration inside in the angle brackets.
+  * We can also apply the constraint directly to a parameter with the impl keyword.
+  * Plain function can be passed in for "closure" parameters. functions are also invocable procedures, but closure are more common.

@@ -1,2 +1,6 @@
 
 To iterate means to perform repeatedly. Iteration is repeating the same operation on a sequence of items, one item at a time.
+
+The iter method will create an iterator that yields immutable references to the collection's elements.
+
+The iter_mut method will create an iterator that yields mutable references to the collection's elements.

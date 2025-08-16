@@ -4,3 +4,7 @@ To iterate means to perform repeatedly. Iteration is repeating the same operatio
 The iter method will create an iterator that yields immutable references to the collection's elements.
 
 The iter_mut method will create an iterator that yields mutable references to the collection's elements.
+
+An adapter method is one that transforms an iterator into another iterator based on some logic.
+The map method applies a closure to each item in an iterator to arrive at a new iterator of values.
+The collect method exhuasts the iterator and gathers the resulting values in a new collection type.

@@ -56,11 +56,27 @@ fn count_chars(text: &str) -> HashMap<char, u32> {
     counts
 }
 
-fn main() {
-    iteration();
+fn adapter_methods() {
+    // The map method.
+    let numbers = [4, 8, 15, 16, 23, 42];
 
-    println!(
-        "{:?}",
-        count_chars("Sally sells sea shells by the sea shores")
-    );
+    let squares = numbers.into_iter().map(|number: i32| number.pow(2));
+    for square in squares {
+        print!("{} ", square)
+    }
+
+    // The collect method.
+    let cubes: Vec<_> = numbers.iter().map(|number: &i32| number.pow(3)).collect();
+    println!("\n{:?}", cubes);
+}
+
+fn main() {
+    // iteration();
+    //
+    // println!(
+    //     "{:?}",
+    //     count_chars("Sally sells sea shells by the sea shores")
+    // );
+    //
+    adapter_methods();
 }

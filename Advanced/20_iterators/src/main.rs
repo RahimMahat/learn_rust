@@ -68,6 +68,34 @@ fn adapter_methods() {
     // The collect method.
     let cubes: Vec<_> = numbers.iter().map(|number: &i32| number.pow(3)).collect();
     println!("\n{:?}", cubes);
+
+    // The filter & copied method.
+    let evens: Vec<i32> = numbers
+        .iter()
+        .filter(|number| *number % 2 == 0)
+        .copied()
+        .collect();
+    println!("{:?}", evens);
+
+    // The find and rfind method.
+    let first_odd = numbers.iter().find(|number| *number % 2 != 0);
+    let last_odd = numbers.iter().rfind(|number| *number % 2 != 0);
+    println!("{:?}, {:?}", first_odd, last_odd);
+
+    // The any and all method.
+    let all_are_even = numbers.iter().all(|number| number % 2 == 0);
+    println!("all_are_even {}", all_are_even);
+    let any_are_even = numbers.iter().any(|number| number % 2 == 0);
+    println!("any_are_even {}", any_are_even);
+
+    // The cloned method.
+    let tees = [
+        String::from("Hot Earl Grey"),
+        String::from("Iced Green"),
+        String::from("Hot Matcha"),
+    ];
+    let more_tees: Vec<String> = tees.iter().cloned().collect();
+    println!("{:?}", more_tees);
 }
 
 fn main() {

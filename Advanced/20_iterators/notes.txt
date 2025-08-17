@@ -8,3 +8,7 @@ The iter_mut method will create an iterator that yields mutable references to th
 An adapter method is one that transforms an iterator into another iterator based on some logic.
 The map method applies a closure to each item in an iterator to arrive at a new iterator of values.
 The collect method exhuasts the iterator and gathers the resulting values in a new collection type.
+The filter method extracts a subset of values that satisfy a condition. Pass a closure that returns true for the elements to keep and false for the elements to exclude.
+The find method will return the first element that satisfy the condition in an Option enum and exhuasts the iterator. rfind is the method that starts the find operation from right so basically giving you the last occurence of your find condition.
+The copied method converts an iterator from storing &T elements to T elements. It makes a copy of each T element. The T data type must implment the Copy trait.
+The cloned method similarly converts an iterator from storing &T elements to T elements. It makes a clone of each T element. The T data type must implment the Clone trait.

@@ -94,8 +94,62 @@ fn adapter_methods() {
         String::from("Iced Green"),
         String::from("Hot Matcha"),
     ];
-    let more_tees: Vec<String> = tees.iter().cloned().collect();
+    let more_tees: Vec<String> = tees
+        .iter()
+        .filter(|tee| tee.contains("Hot"))
+        .cloned()
+        .collect();
     println!("{:?}", more_tees);
+
+    // The filter_map method.
+    let stocks = ["nvda", "", "aapl", "", "msft", "goog"];
+    let capitalized_stock = stocks
+        .iter()
+        .filter_map(|stock| {
+            if stock.is_empty() {
+                None
+            } else {
+                Some(stock.to_uppercase())
+            }
+        })
+        .collect::<Vec<String>>();
+    println!("{:?}", capitalized_stock);
+
+    // The flatten method.
+    let spreadsheet = vec![[100, 200, 300], [123, 223, 323], [987, 654, 321]];
+    let values: Vec<i32> = spreadsheet.into_iter().flatten().collect();
+    println!("{:?}", values);
+
+    // The flat_map method.
+    let attendees = ["Bob", "Mary, Kevin", "Mike, Robin, Bruce"];
+    let attendees: Vec<&str> = attendees
+        .iter()
+        .flat_map(|group| group.split(", "))
+        .collect();
+    println!("{attendees:?}");
+
+    // The enumerate method.
+    let applicants = vec!["Rob", "Bob", "Alex", "Rich", "John", "Dan"];
+    let winners = applicants
+        .into_iter()
+        .enumerate()
+        // .filter(|(index, _)| index % 3 == 0)
+        // .map(|(_, applicant)| applicant)
+        .filter_map(|(index, applicant)| {
+            if index % 3 == 0 {
+                Some(applicant)
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<&str>>();
+    println!("{:?}", winners);
+
+    // The partition method.
+    // let groups: (Vec<i32>, Vec<i32>) = numbers.into_iter().partition(|number| number % 2 == 0);
+    let (evens, odds): (Vec<i32>, Vec<i32>) =
+        numbers.into_iter().partition(|number| number % 2 == 0);
+    println!("evens {:?}, odds {:?}", evens, odds);
 }
 
 fn main() {

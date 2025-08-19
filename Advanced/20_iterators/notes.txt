@@ -12,3 +12,6 @@ The filter method extracts a subset of values that satisfy a condition. Pass a c
 The find method will return the first element that satisfy the condition in an Option enum and exhuasts the iterator. rfind is the method that starts the find operation from right so basically giving you the last occurence of your find condition.
 The copied method converts an iterator from storing &T elements to T elements. It makes a copy of each T element. The T data type must implment the Copy trait.
 The cloned method similarly converts an iterator from storing &T elements to T elements. It makes a clone of each T element. The T data type must implment the Clone trait.
+The filter_map method both filters and transforms a subset of elements from an iterator.
+The enumerate adapter transforms an iterator so that it yields the index position along with the current element.
+The partition method group s and returns the values for which the closure returns true and for which the closure return false.

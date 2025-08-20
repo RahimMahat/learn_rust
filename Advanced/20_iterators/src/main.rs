@@ -150,6 +150,28 @@ fn adapter_methods() {
     let (evens, odds): (Vec<i32>, Vec<i32>) =
         numbers.into_iter().partition(|number| number % 2 == 0);
     println!("evens {:?}, odds {:?}", evens, odds);
+
+    // The zip method.
+    let first_names = ["Casey", "Robert", "Cargo"];
+    let last_names = ["Johnson", "Smith", "Rustman"];
+
+    for (first_name, last_name) in first_names.iter().zip(last_names) {
+        println!("{} {}", first_name, last_name);
+    }
+
+    // The fold method.
+    let earnings = [4, 7, 9, 13];
+    let sum = earnings.into_iter().fold(0, |total, current| {
+        println!("total {total}, current {current}");
+        total + current
+    });
+    println!("{}", sum);
+
+    // The reduce method.
+    let sum = earnings
+        .into_iter()
+        .reduce(|total, current| total + current);
+    println!("{:?}", sum);
 }
 
 fn main() {

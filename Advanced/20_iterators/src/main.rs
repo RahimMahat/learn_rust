@@ -172,6 +172,16 @@ fn adapter_methods() {
         .into_iter()
         .reduce(|total, current| total + current);
     println!("{:?}", sum);
+
+    // The sum, product, max, min and count methods.
+    let total: i32 = numbers.iter().sum();
+    let product: i32 = numbers.iter().product();
+    println!("sum {}, product {}", total, product);
+    let max = numbers.iter().max();
+    let min = numbers.iter().min();
+    println!("max {}, min {}", max.unwrap(), min.unwrap());
+    let count = numbers.iter().count();
+    println!("count {}", count);
 }
 
 fn main() {

@@ -182,6 +182,20 @@ fn adapter_methods() {
     println!("max {}, min {}", max.unwrap(), min.unwrap());
     let count = numbers.iter().count();
     println!("count {}", count);
+
+    // The last, nth, nth_back, and position methods.
+    let performers = ["Rustful Five", "Rust in piece", "Rust n Python"];
+    let last = performers.into_iter().last().unwrap();
+    println!("{}", last);
+    let nth = performers.into_iter().nth(1).unwrap();
+    println!("{}", nth);
+    let nth_back = performers.into_iter().nth_back(2).unwrap();
+    println!("{}", nth_back);
+    let position = performers
+        .into_iter()
+        .position(|performer| performer.contains("Python"))
+        .unwrap();
+    println!("{}", position);
 }
 
 fn main() {

@@ -1,4 +1,8 @@
 use std::collections::HashMap;
+use std::env;
+use std::fs;
+use std::io;
+use std::process;
 
 fn iteration() {
     // Full ownership
@@ -196,6 +200,81 @@ fn adapter_methods() {
         .position(|performer| performer.contains("Python"))
         .unwrap();
     println!("{}", position);
+
+    // The take, rev, skip and step_by methods.
+    let fifty_numbers = 1..=50;
+    let take_40 = fifty_numbers.take(40);
+    let skip_5 = take_40.skip(5);
+    for num in skip_5.step_by(10) {
+        print!("{}/", num)
+    }
+
+    // The sort and sort_by_key methods.
+    let mut points = [3, 8, 1, 11, 5];
+    points.sort();
+    println!("\n{}", points.is_sorted());
+
+    // The line method.
+    let contents = fs::read_to_string("notes.txt").unwrap();
+    for line in contents.lines() {
+        println!("{}", line);
+    }
+}
+
+fn command_line_args() {
+    #[derive(Debug)]
+    struct Settings {
+        video_file: String,
+        subtitles: bool,
+        high_definition: bool,
+    }
+
+    fn collect_settings() -> Settings {
+        // collecting the args but skipping the file name which would be the first argument to the program by default. and then only take 3 elements that we need.
+        let mut args = env::args().skip(1).take(3);
+
+        let video_file = args.next().unwrap_or_else(|| {
+            eprintln!("No video file specified");
+            process::exit(1)
+        });
+
+        let mut settings = args.map(|setting| setting.parse::<bool>().unwrap_or(false));
+        let subtitles = settings.next().unwrap_or(false);
+        let high_definition = settings.next().unwrap_or(false);
+
+        Settings {
+            video_file,
+            subtitles,
+            high_definition,
+        }
+    }
+    let settings = collect_settings();
+    println!("{:?}", settings);
+}
+
+fn reading_directory() -> io::Result<()> {
+    /*
+    The fs::read_dir() function returns a io::Result<ReadDir> enum.
+    The ReadDir struct implements the Iterator trait.
+    The iterator yields Result<DirEntry, Error> enums.
+    The DirEntry struct supports a 'path' method.
+    The fs::metadata function returns a Metadata struct.
+    The Metadata struct includes an 'is_file' method.
+    the fs::read_to_string function returns a io::Result<String>.
+    */
+
+    for entry_result in fs::read_dir("./")? {
+        let entry = entry_result?;
+        let path = entry.path();
+        let metadata = fs::metadata(&path)?;
+        if metadata.is_file() {
+            println!("{:?}\n---------------------------------------- ", path);
+            let contents = fs::read_to_string(&path)?;
+            println!("{}", contents);
+        }
+    }
+
+    Ok(())
 }
 
 fn main() {
@@ -206,5 +285,7 @@ fn main() {
     //     count_chars("Sally sells sea shells by the sea shores")
     // );
     //
-    adapter_methods();
+    // adapter_methods();
+    // command_line_args();
+    reading_directory();
 }

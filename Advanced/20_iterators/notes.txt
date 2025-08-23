@@ -17,3 +17,5 @@ The enumerate adapter transforms an iterator so that it yields the index positio
 The partition method group s and returns the values for which the closure returns true and for which the closure return false.
 The fold method exhuasts an iterator to build up and produce a single value at the end of iteration.
 The reduce method is similar to fold but it supplies the iterator's first element as the starter value, Reduce method returns an Option enum to account for the possibility of an empty iterator.
+The lines method returns an iterator of the string's individual lines.
+

@@ -278,14 +278,14 @@ fn reading_directory() -> io::Result<()> {
 }
 
 fn main() {
-    // iteration();
-    //
-    // println!(
-    //     "{:?}",
-    //     count_chars("Sally sells sea shells by the sea shores")
-    // );
-    //
-    // adapter_methods();
-    // command_line_args();
+    iteration();
+
+    println!(
+        "{:?}",
+        count_chars("Sally sells sea shells by the sea shores")
+    );
+
+    adapter_methods();
+    command_line_args();
     reading_directory();
 }

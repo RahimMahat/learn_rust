@@ -1,21 +1,28 @@
+Iteration:
+  To iterate means to perform repeatedly. Iteration is repeating the same operation on a sequence of items, one item at a time.
 
-To iterate means to perform repeatedly. Iteration is repeating the same operation on a sequence of items, one item at a time.
+Iterator Construction Methods:
+  The into_iter method returns an iterator that yields the elements by value (transferring ownership if elements do not implement the Copy trait).
+  The iter method will create an iterator that yields immutable references to the collection's elements.
+  The iter_mut method will create an iterator that yields mutable references to the collection's elements.
 
-The iter method will create an iterator that yields immutable references to the collection's elements.
+Lazy Iterators:
+  Iterators are lazy. They will not exhuast/consume theselves until an operation or method forces them to iterate.
+  A for loop or the complementary for_each method forces an iteration.
+  The collect method gathers the iterator's elements into a collection type.
 
-The iter_mut method will create an iterator that yields mutable references to the collection's elements.
-
-An adapter method is one that transforms an iterator into another iterator based on some logic.
-The map method applies a closure to each item in an iterator to arrive at a new iterator of values.
-The collect method exhuasts the iterator and gathers the resulting values in a new collection type.
-The filter method extracts a subset of values that satisfy a condition. Pass a closure that returns true for the elements to keep and false for the elements to exclude.
-The find method will return the first element that satisfy the condition in an Option enum and exhuasts the iterator. rfind is the method that starts the find operation from right so basically giving you the last occurence of your find condition.
-The copied method converts an iterator from storing &T elements to T elements. It makes a copy of each T element. The T data type must implment the Copy trait.
-The cloned method similarly converts an iterator from storing &T elements to T elements. It makes a clone of each T element. The T data type must implement the Clone trait.
-The filter_map method both filters and transforms a subset of elements from an iterator.
-The enumerate adapter transforms an iterator so that it yields the index position along with the current element.
-The partition method group s and returns the values for which the closure returns true and for which the closure return false.
-The fold method exhuasts an iterator to build up and produce a single value at the end of iteration.
-The reduce method is similar to fold but it supplies the iterator's first element as the starter value, Reduce method returns an Option enum to account for the possibility of an empty iterator.
-The lines method returns an iterator of the string's individual lines.
+Adapter Methods:
+  An adapter method is one that transforms an iterator into another iterator based on some logic.
+  The map method applies a closure to each item in an iterator to arrive at a new iterator of values.
+  The collect method exhuasts the iterator and gathers the resulting values in a new collection type.
+  The filter method extracts a subset of values that satisfy a condition. Pass a closure that returns true for the elements to keep and false for the elements to exclude.
+  The find method will return the first element that satisfy the condition in an Option enum and exhuasts the iterator. rfind is the method that starts the find operation from right so basically giving you the last occurence of your find condition.
+  The copied method converts an iterator from storing &T elements to T elements. It makes a copy of each T element. The T data type must implment the Copy trait.
+  The cloned method similarly converts an iterator from storing &T elements to T elements. It makes a clone of each T element. The T data type must implement the Clone trait.
+  The filter_map method both filters and transforms a subset of elements from an iterator.
+  The enumerate adapter transforms an iterator so that it yields the index position along with the current element.
+  The partition method group s and returns the values for which the closure returns true and for which the closure return false.
+  The fold method exhuasts an iterator to build up and produce a single value at the end of iteration.
+  The reduce method is similar to fold but it supplies the iterator's first element as the starter value, Reduce method returns an Option enum to account for the possibility of an empty iterator.
+  The lines method returns an iterator of the string's individual lines.
 

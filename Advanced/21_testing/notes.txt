@@ -1,0 +1,5 @@
+
+An assertion is a verification that a statement is valid. To assert means to state a fact.
+A test is a plain Rust function annotated with a #[test] attribute.
+A unit test targets a small component of a program in isolation.
+An integration test tests the interaction of multiple components within the program.

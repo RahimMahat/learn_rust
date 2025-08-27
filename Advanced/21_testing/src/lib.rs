@@ -35,4 +35,12 @@ mod tests {
         museum.sell_ticket();
         assert_eq!(museum.revenue, 25);
     }
+
+    #[test]
+    fn museum_can_sell_multiple_tickets() {
+        let mut museum = Museum::new();
+        museum.sell_ticket();
+        museum.sell_ticket();
+        assert_eq!(museum.revenue, 50);
+    }
 }

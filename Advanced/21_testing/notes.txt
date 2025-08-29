@@ -1,0 +1,40 @@
+Testing:
+  * Tests validate that the source code works as expected.
+  * An assertion is a verification that a statement is valid. To assert means to state a fact.
+  * A test is a plain Rust function annotated with a #[test] attribute.
+  * A unit test targets a small component of a program in isolation.
+  * An integration test tests the interaction of multiple components within the program.
+  * Run cargo test to execute the full test suite. Cargo will run tests in parallel.
+
+Assertions:
+  * The assert_eq macro validates that two values are equal. The values must implement the PartialEq trait.
+  * The assert_ne macro validates that two values are not equal.
+  * The assert macro validates that it's argument is true.
+  * The final optional argument to any assertion is a custom error message in case of test failure.
+  * The should_panic attribute validates that the test code causes a panic.
+
+Test setup:
+  * In Rust, unit tests are written alongside the implementation code.
+  * Nest the tests within a tests module to distinguish it from the source code. The module name is technically arbitrary.
+  * Add the #[cfg(test)] attribute to tell the compiler to exclude the tests when building the main executable.
+  * Use supper::* to bring in all names from the outer scope into the module's scope.
+
+Integration tests:
+  * A unit test targets a small, independent chunk of value ( a function, a method, etc)
+  * An integration test tests a larger feature or the interaction of multiple units within the system.
+  * Write tests in plain.rs files within a top-level tests/ directory.
+  * In the test files, there is no need for a tests module.
+  * Add the pub keyword for constructs in the source code to enble them to be pulled into tests.
+
+Documentation tests:
+  * A documentation test is written using documentation comments (///)
+  * Use # to create a section header.
+  * Use ``` to mark the beginning and end of a code sample. The code has access to assertions.
+  * Run cargo tests to run the documentation tests.
+  * Run cargo doc to generate browser documentation from the comments.
+
+Dependency Injection:
+  * Dependency Injection is a design pattern where a type receives it's dependencies from the "outside" world instead of creating them itself.
+  * Hardcoding a specific dependency in a constructor function couples the type to that dependency.
+  * Use traits to both enforce consistency and constraints on injected types.
+  * Dependency injection simplifies testing because tests can pass in dummies/replacements for the real-world dependencies.

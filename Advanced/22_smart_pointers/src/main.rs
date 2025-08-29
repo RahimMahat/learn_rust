@@ -1,4 +1,6 @@
 use std::cmp::Ordering;
+use std::error::Error;
+use std::fs;
 use std::ops::{Deref, DerefMut};
 
 fn raw_pointers() {
@@ -184,11 +186,70 @@ fn deref_and_deref_mut_traits() {
     println!("PI double {}", *custom_boxy);
 }
 
+fn trait_objects() {
+    // A trait object is an instance of some type that implements a specific trait.
+    trait Wearable {
+        fn wear(&self) -> String;
+    }
+
+    #[derive(Debug)]
+    struct Pants {
+        fabric: String,
+        waist_size: u32,
+    }
+
+    impl Wearable for Pants {
+        fn wear(&self) -> String {
+            format!("{} {} pants", self.fabric, self.waist_size)
+        }
+    }
+
+    #[derive(Debug)]
+    struct Tie {
+        color: String,
+    }
+
+    impl Wearable for Tie {
+        fn wear(&self) -> String {
+            format!("{} tie", self.color)
+        }
+    }
+
+    let pants = Pants {
+        fabric: "Cotton".to_string(),
+        waist_size: 34,
+    };
+
+    let tie = Tie {
+        color: "Black".to_string(),
+    };
+
+    let outfit: Vec<Box<dyn Wearable>> = vec![Box::new(pants), Box::new(tie)];
+
+    let items: Vec<String> = outfit.into_iter().map(|item| item.wear()).collect();
+    println!("{:#?}", items);
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    fn read_number_from_file(path: &str) -> Result<i32, Box<dyn Error>> {
+        let file_contents = fs::read_to_string(path)?;
+        let parsed_number = file_contents.parse::<i32>()?;
+        Ok(parsed_number)
+    }
+
+    let path = "notes.txt";
+    match read_number_from_file(path) {
+        Ok(value) => println!("The number is {value}"),
+        Err(error) => eprintln!("The error is {error}"),
+    }
+}
+
 fn main() {
     // raw_pointers();
     // box_smart_pointer();
     // linked_list();
     // truee();
     // binary_search_tree();
-    deref_and_deref_mut_traits();
+    // deref_and_deref_mut_traits();
+    // trait_objects();
 }

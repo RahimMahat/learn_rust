@@ -24,3 +24,27 @@ Smart Pointers:
   * References like &T borrow data, and they are not responsible for deallocating the data; the original owner is responsible for deallocation.
   * Smart pointers often own and manage their own data, typically on the heap.
   * The advantage is that smart pointers behave like pointers but can be treated like owned types.
+
+Recursive Data Structure:
+  * A recursive data structure is one that stores the structure itself.
+  * Imagine a struct with a field whose type is that exact struct.
+  * Recursive functions use a base case to force the termination of recursion.
+  * Recursive data structures use a Box to solve the infinity problem.
+  * The compiler does not have to worry about nested data structures occupying infinite memory.
+
+Linked List:
+  * A linked list is a data structure that consists of a linear collection of connected nodes.
+  * Each node stores a piece of data and reference to the next node in sequence.
+  * Unlike arrays/vectors, the nodes are not stored contiguously in memory which makes it easier to insert an item in the middle of the list.
+
+Binary Search:
+  * Binary means consisting of two parts.
+  * Binary search is a search algorithm for finding a target value in a sorted collection.
+  * Binary search splits the search area into two parts with each turn.
+  * Each step in a binary search halves the search area.
+
+Binary Search Tree:
+  * A binary search tree is a tree data structure tat consists of nodes with values.
+  * Each node has between 0 and 2 children.
+  * A node's value is greater than the values of all children in its left subtree.
+  * A node's value is smaller than the values of all children its right subtree.
